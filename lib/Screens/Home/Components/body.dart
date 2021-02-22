@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Burger".toUpperCase(),
+            "Bram \nBurger".toUpperCase(),
             style: Theme.of(context).textTheme.headline1.copyWith(
                   color: kTextcolor,
                   fontWeight: FontWeight.bold,
