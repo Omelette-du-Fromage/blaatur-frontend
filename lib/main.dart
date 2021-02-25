@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const _localhost = '0.0.0.0';
+const _hostname = '0.0.0.0';
 
 void main() {
   runApp(MyApp());
