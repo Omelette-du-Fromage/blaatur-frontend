@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_web/Screens/Home/home_screen.dart';
 import 'package:food_web/constant.dart';
 
-const _localhost = '0.0.0.0';
+const _hostname = '0.0.0.0';
 
 void main() {
   runApp(MyApp());
