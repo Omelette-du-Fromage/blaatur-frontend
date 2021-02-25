@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_web/Screens/Home/home_screen.dart';
-import 'package:food_web/constant.dart';
 
 const _localhost = '0.0.0.0';
 
@@ -13,17 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Web',
+      title:'Flutter Web',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: kPrimaryColor,
-
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: Colors.amber,
       ),
-      home: HomeScreen(),
+      home: Scaffold(backgroundColor: Colors.blueGrey),
     );
   }
 }
