@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Pages/MainPage.dart';
+import 'pages/MainPage.dart';
 
 const _hostname = '0.0.0.0';
 
