@@ -15,5 +15,3 @@ class MyApp extends StatelessWidget {
     return new MainPage();
   }
 }
-
-// check

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/InputField.dart';
+import '../components/input_field.dart';
 
 class MainPage extends StatelessWidget {
   // This widget is the root of your application.
