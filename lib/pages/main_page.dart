@@ -23,7 +23,11 @@ class MainPage extends StatelessWidget {
               print(inputfield.value);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DestinationRoute()),
+                MaterialPageRoute(
+                  builder: (context) => DestinationRoute(
+                    startLocation: inputfield.value,
+                  ),
+                ),
               );
             },
           ),
