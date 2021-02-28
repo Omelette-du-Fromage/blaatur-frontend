@@ -12,6 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new MainPage();
+    return new MaterialApp(
+      title: 'Flutter Web',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.amber,
+      ),
+      home: MainPage(),
+    );
   }
 }
