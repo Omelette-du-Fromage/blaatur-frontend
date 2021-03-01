@@ -15,7 +15,6 @@ class _DestinationRouteState extends State<DestinationRoute> {
   Future<http.Response> fetchTest() async {
     final response =
         await http.get('https://blaatur-backend-staging.herokuapp.com/testing');
-    print("Hei");
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
     } else {

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class CustomSlider extends StatefulWidget {
   CustomSlider({Key key}) : super(key: key);
-  double _currentSliderValue = 20;
+  int _currentSliderValue = 100;
 
-  double get value {
+  int get value {
     return _currentSliderValue;
   }
 
@@ -17,16 +17,19 @@ class _CustomSliderState extends State<CustomSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        width: 600,
         child: Slider(
-      min: 0,
-      max: 100,
-      value: widget._currentSliderValue,
-      label: widget._currentSliderValue.round().toString(),
-      onChanged: (double value) {
-        setState(() {
-          widget._currentSliderValue = value;
-        });
-      },
-    ));
+          min: 100,
+          max: 10000,
+          divisions: 100,
+          activeColor: Colors.white,
+          value: widget._currentSliderValue.toDouble(),
+          label: widget._currentSliderValue.toString(),
+          onChanged: (double value) {
+            setState(() {
+              widget._currentSliderValue = value.round();
+            });
+          },
+        ));
   }
 }

@@ -1,13 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
   String value;
 
-  InputField() {
-    value = "";
-  }
+  InputField(this.value);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +17,6 @@ class InputField extends StatelessWidget {
                 fillColor: Colors.white,
                 filled: true,
                 border: InputBorder.none,
-                hintText: 'Starting point.')));
+                hintText: value)));
   }
 }
