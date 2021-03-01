@@ -27,6 +27,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
   Widget build(BuildContext context) {
     fetchTest();
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         alignment: Alignment.center,
         child: Column(

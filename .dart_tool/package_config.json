@@ -98,6 +98,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "pedantic",
+      "rootUri": "file:///C:/src/flutter/flutter_windows_v1.12.13+hotfix.8-stable/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///C:/Flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
