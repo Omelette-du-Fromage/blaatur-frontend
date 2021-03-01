@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DestinationRoute extends StatefulWidget {
-  String startLocation;
+  final String startLocation;
 
-  DestinationRoute({Key key, String startLocation}) : super(key: key) {
-    this.startLocation = startLocation;
-  }
+  DestinationRoute({Key key, this.startLocation}) : super(key: key) {}
 
   @override
   _DestinationRouteState createState() => _DestinationRouteState();
