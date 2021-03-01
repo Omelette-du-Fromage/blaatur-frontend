@@ -8,6 +8,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _value = 0;
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       body: Center(
