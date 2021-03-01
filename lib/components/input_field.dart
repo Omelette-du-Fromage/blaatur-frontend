@@ -8,9 +8,9 @@ class InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
         width: 300,
-        child: new TextField(
+        child: TextField(
             onChanged: (val) => value = val,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
