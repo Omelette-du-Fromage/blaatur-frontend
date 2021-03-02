@@ -23,9 +23,9 @@ class _DestinationRouteState extends State<DestinationRoute> {
     return response;
   }
 
-  Future<http.Response> fetchStartingPoint(String startingPoint) async {
+  Future<http.Response> fetchStartLocation(String startLocation) async {
     final response =
-    await http.get('https://blaatur-backend-staging.herokuapp.com/start?start=' + startingPoint);
+    await http.get('https://blaatur-backend-staging.herokuapp.com/start?start=' + startLocation);
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
     } else {
@@ -37,7 +37,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
   @override
   Widget build(BuildContext context) {
     fetchTest();
-    fetchStartingPoint(widget.startLocation);
+    fetchStartLocation(widget.startLocation);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
