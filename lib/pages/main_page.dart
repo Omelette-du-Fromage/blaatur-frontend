@@ -26,9 +26,7 @@ class MainPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DestinationRoute(
-                    startLocation: inputFieldStartingPoint.value +
-                        '    ' +
-                        inputFieldBudget.value,
+                    startLocation: inputFieldStartingPoint.value
                   ),
                 ),
               );
