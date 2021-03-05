@@ -24,8 +24,9 @@ class _DestinationRouteState extends State<DestinationRoute> {
   }
 
   Future<http.Response> fetchStartLocation(String startLocation) async {
-    final response =
-    await http.get('https://blaatur-backend-staging.herokuapp.com/start?start=' + startLocation);
+    final response = await http.get(
+        'https://blaatur-backend-staging.herokuapp.com/start?start=' +
+            startLocation);
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
     } else {
@@ -50,7 +51,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
             ),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Go back"),
+              child: Text('Go back'),
             ),
           ],
         ),
