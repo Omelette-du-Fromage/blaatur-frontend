@@ -12,7 +12,7 @@ class DestinationRoute extends StatefulWidget {
 }
 
 class _DestinationRouteState extends State<DestinationRoute> {
-  Future<http.Response> fetchStartLocation(String startLocation) async {
+  Future<http.Response> fetchTrip(String startLocation) async {
     final response = await http.post(
       'https://blaatur-backend-staging.herokuapp.com/testing',
       headers: <String, String>{
@@ -30,7 +30,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
 
   @override
   Widget build(BuildContext context) {
-    fetchStartLocation(widget.startLocation);
+    fetchTrip(widget.startLocation);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
