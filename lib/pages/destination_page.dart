@@ -12,17 +12,6 @@ class DestinationRoute extends StatefulWidget {
 }
 
 class _DestinationRouteState extends State<DestinationRoute> {
-  Future<http.Response> fetchTest() async {
-    final response =
-        await http.get('https://blaatur-backend-staging.herokuapp.com/testing');
-    if (response.statusCode == 200) {
-      print(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to fetch from backend');
-    }
-    return response;
-  }
-
   Future<http.Response> fetchStartLocation(String startLocation) async {
     final response = await http.post(
       'https://blaatur-backend-staging.herokuapp.com/testing',
@@ -41,7 +30,6 @@ class _DestinationRouteState extends State<DestinationRoute> {
 
   @override
   Widget build(BuildContext context) {
-    fetchTest();
     fetchStartLocation(widget.startLocation);
 
     return Scaffold(
