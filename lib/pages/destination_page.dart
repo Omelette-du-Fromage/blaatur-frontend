@@ -25,15 +25,11 @@ class _DestinationRouteState extends State<DestinationRoute> {
 
   Future<http.Response> fetchStartLocation(String startLocation) async {
     final response = await http.post(
-      'https://blaatur-backend-staging.herokuapp.com/start?start=' +
-          startLocation,
+      'https://blaatur-backend-staging.herokuapp.com/testing',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        'place_from': 'Evanger',
-        'place_to': 'Bulken',
-      }),
+      body: jsonEncode(<String, String>{'place_from': startLocation}),
     );
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
