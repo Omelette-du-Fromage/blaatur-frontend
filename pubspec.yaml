@@ -34,7 +34,12 @@ dev_dependencies:
     
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
 
   assets:
-    - assets/images/
+    - assets/images/pic1.jpg
+    - assets/images/pic2.jpg
   
