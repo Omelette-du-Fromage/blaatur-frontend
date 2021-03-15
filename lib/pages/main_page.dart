@@ -4,8 +4,6 @@ import 'destination_page.dart';
 
 class MainPage extends StatelessWidget {
   // This widget is the root of your application.
-  final InputField inputFieldStartingPoint = InputField('Starting point');
-  final InputField inputFieldBudget = InputField('Budget');
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +36,36 @@ class MainPage extends StatelessWidget {
               ),
               SizedBox(height: 200),
               TravelForm(
-                  inputFieldStartingPoint: inputFieldStartingPoint,
-                  inputFieldBudget: inputFieldBudget)
+                  inputFieldStartingPoint: InputField('Starting point'),
+                  inputFieldBudget: InputField('Budget'),
+                  callback: callback),
             ],
           ),
         ),
       ),
     );
   }
+
+  final callback = (context, inputFieldStartingPoint) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              DestinationRoute(startLocation: inputFieldStartingPoint.value),
+        ),
+      );
 }
 
 class TravelForm extends StatelessWidget {
-  const TravelForm({
-    Key key,
-    @required this.inputFieldStartingPoint,
-    @required this.inputFieldBudget,
-  }) : super(key: key);
+  const TravelForm(
+      {Key key,
+      @required this.inputFieldStartingPoint,
+      @required this.inputFieldBudget,
+      @required this.callback})
+      : super(key: key);
 
   final InputField inputFieldStartingPoint;
   final InputField inputFieldBudget;
+  final Function callback;
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +77,7 @@ class TravelForm extends StatelessWidget {
         SizedBox(height: 20),
         RawMaterialButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DestinationRoute(
-                    startLocation: inputFieldStartingPoint.value),
-              ),
-            );
+            callback(context, inputFieldStartingPoint);
           },
           elevation: 2.0,
           fillColor: Colors.white,

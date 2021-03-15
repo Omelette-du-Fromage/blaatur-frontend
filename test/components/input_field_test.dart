@@ -5,17 +5,17 @@ import 'package:food_web/components/input_field.dart';
 void main() {
   testWidgets('InputField handles input correctly',
       (WidgetTester tester) async {
-    InputField inputField = InputField('default');
-    await tester.pumpWidget(inputField);
-    await tester.enterText(find.byType(TextField), 'Bergen');
-    await tester.pump();
-    expect(defaultTextFinder, findsOneWidget);
+    await tester.pumpWidget(MaterialApp(home: InputField('Starting point')));
+    final textField = find.byType(TextField);
+    await tester.enterText(textField, 'new text');
+    final text = find.text('new text');
+    expect(text, findsOneWidget);
   });
 
   test(
-      'Given input Hint text When Inputfield.value Then return string Hint text',
+      'Given input Hint text When Inputfield.value Then return string Starting point',
       () async {
-    final inputField = InputField('Hint text');
-    expect(inputField.value, 'Hint text');
+    final inputField = InputField('Starting point');
+    expect(inputField.value, 'Starting point');
   });
 }
