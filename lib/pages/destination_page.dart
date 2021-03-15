@@ -2,17 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class DestinationRoute extends StatefulWidget {
-  final String startLocation;
 
-  DestinationRoute({Key key, this.startLocation}) : super(key: key);
+void main() => runApp(DestinationRoute());
 
-  @override
-  _DestinationRouteState createState() => _DestinationRouteState();
-}
-
-class _DestinationRouteState extends State<DestinationRoute> {
-  Future<http.Response> fetchTrip(String startLocation) async {
+Future<http.Response> fetchTrip(String startLocation) async {
     final response = await http.post(
       'https://blaatur-backend-staging.herokuapp.com/testing',
       headers: <String, String>{
@@ -26,20 +19,64 @@ class _DestinationRouteState extends State<DestinationRoute> {
       throw Exception('Failed to fetch from backend');
     }
     return response;
+}
+
+class DestinationRoute extends StatefulWidget {
+  final String startLocation;
+
+  DestinationRoute({Key key, this.startLocation}) : super(key: key);
+
+  @override
+  _DestinationRouteState createState() => _DestinationRouteState();
+}
+
+
+class _DestinationRouteState extends State<DestinationRoute> {
+
+  Future<http.Response> response; 
+
+  @override
+  void initState() {
+    super.initState();
+    response = fetchTrip(widget.startLocation);
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
-    fetchTrip(widget.startLocation);
+    //var responseman = fetchTrip(widget.startLocation);
+    //responseman.then((value) => null);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        alignment: Alignment.center,
+        child: FutureBuilder<http.Response>(
+          future: response,
+          builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                Map<String, dynamic> dataman = jsonDecode(snapshot.data.body);
+                return SelectableText(dataman['name'] + '! :-)');
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return CircularProgressIndicator();
+          }
+        ),
+      ),
+    );
+  }
+}
+
+    /*return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         alignment: Alignment.center,
         child: Column(
           children: [
             Container(
-              child: Text(widget.startLocation),
+              child: Text(response),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -50,4 +87,4 @@ class _DestinationRouteState extends State<DestinationRoute> {
       ),
     );
   }
-}
+}*/
