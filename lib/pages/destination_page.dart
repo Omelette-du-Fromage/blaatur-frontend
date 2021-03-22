@@ -95,7 +95,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         alignment: Alignment.center,
-        child: Column(children: [ FutureBuilder<http.Response>(
+        child: ListView( children: [FutureBuilder<http.Response>(
             future: response,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -131,11 +131,19 @@ class _DestinationRouteState extends State<DestinationRoute> {
                 return Text('${snapshot.error}');
               }
               return CircularProgressIndicator();
-            }), ]),
+            }),
+          ElevatedButton(
+          onPressed: () {
+            // Respond to button press
+          },
+          child: Text('Refresh'),
+        )
+        ]),
       ),
     );
   }
 }
+
 
 /*return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
