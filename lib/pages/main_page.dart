@@ -38,8 +38,8 @@ class MainPage extends StatelessWidget {
               ),
               SizedBox(height: 200),
               TravelForm(
-                  inputFieldStartingPoint: InputField('Starting point'),
-                  inputFieldBudget: InputField('Budget'),
+                  inputFieldStartingPoint:
+                      InputField(hintText: 'Bergen', value: 'Bergen'),
                   callback: callback),
             ],
           ),
@@ -61,12 +61,10 @@ class TravelForm extends StatelessWidget {
   const TravelForm(
       {Key key,
       @required this.inputFieldStartingPoint,
-      @required this.inputFieldBudget,
       @required this.callback})
       : super(key: key);
 
   final InputField inputFieldStartingPoint;
-  final InputField inputFieldBudget;
   final Function callback;
 
   @override
@@ -75,7 +73,6 @@ class TravelForm extends StatelessWidget {
       children: <Widget>[
         inputFieldStartingPoint,
         SizedBox(height: 10),
-        inputFieldBudget,
         SizedBox(height: 20),
         RawMaterialButton(
           onPressed: () {
@@ -83,13 +80,13 @@ class TravelForm extends StatelessWidget {
           },
           elevation: 2.0,
           fillColor: Colors.white,
+          padding: EdgeInsets.all(2.0),
+          shape: CircleBorder(),
           child: Icon(
             Icons.public,
             color: Colors.black,
             size: 60.0,
           ),
-          padding: EdgeInsets.all(2.0),
-          shape: CircleBorder(),
         ),
       ],
     );
