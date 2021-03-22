@@ -54,8 +54,8 @@ class _DestinationRouteState extends State<DestinationRoute> {
       leg_list.add([
         stringToIcon(leg['mode']),
         "${startTime.hour.toString().padLeft(2, '0')}:${startTime.minute.toString().padLeft(2, '0')}",
-        "${endTime.hour.toString().padLeft(2, '0')}:${endTime.minute.toString().padLeft(2, '0')}",
         leg['fromPlace']['name'],
+        "${endTime.hour.toString().padLeft(2, '0')}:${endTime.minute.toString().padLeft(2, '0')}",
         leg['toPlace']['name'],
         transport_company,
       ]);
@@ -65,11 +65,11 @@ class _DestinationRouteState extends State<DestinationRoute> {
 
   Icon stringToIcon(String string) {
     var iconName = <String, IconData>{
-      'foot': Icons.directions_run,
+      'foot': Icons.directions_walk,
       'air': Icons.airplanemode_off_rounded,
       'bus': Icons.directions_bus,
       'rail': Icons.directions_train,
-      'tram': Icons.directions_train_outlined,
+      'tram': Icons.directions_transit_outlined
     }[string];
     return Icon(
       iconName,
@@ -99,19 +99,19 @@ class _DestinationRouteState extends State<DestinationRoute> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 Map<String, dynamic> dataman = jsonDecode(snapshot.data.body);
-                var leg_list = parseJSON(dataman);
+                var legList = parseJSON(dataman);
                 return DataTable(
                   dataRowHeight: 60,
                   columns: [
                     DataColumn(label: Text('')),
                     DataColumn(label: Text('Klokke fra')),
-                    DataColumn(label: Text('Klokka til')),
                     DataColumn(label: Text('Fra')),
+                    DataColumn(label: Text('Klokka til')),
                     DataColumn(label: Text('Til')),
                     DataColumn(label: Text('Selskap')),
                   ],
                   rows: [
-                    for (var leg in leg_list)
+                    for (var leg in legList)
                       DataRow(
                         cells: [
                           DataCell(

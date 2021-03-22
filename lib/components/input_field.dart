@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
   String value;
+  String hintText;
 
-  InputField(this.value);
+  InputField({this.hintText = 'Hint Text', this.value = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class InputField extends StatelessWidget {
               hintStyle: TextStyle(color: Colors.white),
               fillColor: Color.fromRGBO(1, 1, 1, 0.2),
               filled: true,
-              hintText: value),
+              hintText: hintText),
         ),
       ),
     );
