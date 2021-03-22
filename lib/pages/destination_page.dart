@@ -141,10 +141,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
                 return Text('${snapshot.error}');
               }
               return
-                SizedBox(
-                  child: CircularProgressIndicator(),
-                  height: 50.0,
-                  width: 50.0,
+                Column( children: [CircularProgressIndicator()]
                 );
             })
         ]),
