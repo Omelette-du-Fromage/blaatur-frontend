@@ -7,20 +7,28 @@ class InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Material(
+      color: Color.fromRGBO(1, 1, 1, 0.0),
+      child: Container(
         width: 300,
         child: TextField(
-            style: TextStyle(color: Colors.white),
-            onChanged: (val) => value = val,
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  borderSide: const BorderSide(color: Colors.grey, width: 0.0),
-                ),
-                hintStyle: TextStyle(color: Colors.white),
-                fillColor: Color.fromRGBO(1, 1, 1, 0.2),
-                filled: true,
-                hintText: value)));
+          style: TextStyle(color: Colors.white),
+          onChanged: (val) => value = val,
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color.fromRGBO(1, 1, 1, 0.0)),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                borderSide: BorderSide(color: Colors.grey, width: 0.0),
+              ),
+              hintStyle: TextStyle(color: Colors.white),
+              fillColor: Color.fromRGBO(1, 1, 1, 0.2),
+              filled: true,
+              hintText: value),
+        ),
+      ),
+    );
   }
 }
