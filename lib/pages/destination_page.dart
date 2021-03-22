@@ -132,7 +132,9 @@ class _DestinationRouteState extends State<DestinationRoute> {
                 ),
               ElevatedButton(
               onPressed: () {
-              // Respond to button press
+                setState(() {
+                  response = fetchTrip(widget.startLocation);
+                });
               },
               child: Text('Refresh'))
                 ]);
