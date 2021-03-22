@@ -93,61 +93,54 @@ class _DestinationRouteState extends State<DestinationRoute> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: Container(
-        alignment: Alignment.center,
-        child: ListView(
-
-            children: [FutureBuilder<http.Response>(
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        FutureBuilder<http.Response>(
             future: response,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 Map<String, dynamic> dataman = jsonDecode(snapshot.data.body);
                 var legList = parseJSON(dataman);
-                return Column(
-                    children: [
+                return Column(children: [
                   DataTable(
-                  dataRowHeight: 60,
-                  columns: [
-                    DataColumn(label: Text('')),
-                    DataColumn(label: Text('Klokke fra')),
-                    DataColumn(label: Text('Fra')),
-                    DataColumn(label: Text('Klokka til')),
-                    DataColumn(label: Text('Til')),
-                    DataColumn(label: Text('Selskap')),
-                  ],
-                  rows: [
-                    for (var leg in legList)
-                      DataRow(
-                        cells: [
-                          DataCell(
-                            leg[0],
-                          ),
-                          for (int i = 1; i < leg.length; i++)
+                    dataRowHeight: 60,
+                    columns: [
+                      DataColumn(label: Text('')),
+                      DataColumn(label: Text('Klokke fra')),
+                      DataColumn(label: Text('Fra')),
+                      DataColumn(label: Text('Klokka til')),
+                      DataColumn(label: Text('Til')),
+                      DataColumn(label: Text('Selskap')),
+                    ],
+                    rows: [
+                      for (var leg in legList)
+                        DataRow(
+                          cells: [
                             DataCell(
-                              Text(leg[i]),
+                              leg[0],
                             ),
-                        ],
-                      ),
-                  ],
-                ),
-              ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  response = fetchTrip(widget.startLocation);
-                });
-              },
-              child: Text('Refresh'))
+                            for (int i = 1; i < leg.length; i++)
+                              DataCell(
+                                Text(leg[i]),
+                              ),
+                          ],
+                        ),
+                    ],
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          response = fetchTrip(widget.startLocation);
+                        });
+                      },
+                      child: Text('Refresh'))
                 ]);
                 //return SelectableText(leg_list.toString());
               } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
+                return Center(child: Text('${snapshot.error}'));
               }
-              return
-                Column( children: [CircularProgressIndicator()]
-                );
+              return Center(child: CircularProgressIndicator());
             })
-        ]),
-      ),
+      ]),
     );
   }
 }
