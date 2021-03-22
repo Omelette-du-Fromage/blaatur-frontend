@@ -95,13 +95,16 @@ class _DestinationRouteState extends State<DestinationRoute> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         alignment: Alignment.center,
-        child: ListView( children: [FutureBuilder<http.Response>(
+        child: ListView(
+
+            children: [FutureBuilder<http.Response>(
             future: response,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 Map<String, dynamic> dataman = jsonDecode(snapshot.data.body);
                 var legList = parseJSON(dataman);
-                return Column(children: [
+                return Column(
+                    children: [
                   DataTable(
                   dataRowHeight: 60,
                   columns: [
@@ -137,7 +140,12 @@ class _DestinationRouteState extends State<DestinationRoute> {
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
-              return CircularProgressIndicator();
+              return
+                SizedBox(
+                  child: CircularProgressIndicator(),
+                  height: 50.0,
+                  width: 50.0,
+                );
             })
         ]),
       ),
