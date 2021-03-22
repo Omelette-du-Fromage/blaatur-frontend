@@ -38,10 +38,11 @@ class _DestinationRouteState extends State<DestinationRoute> {
     response = fetchTrip(widget.startLocation);
   }
 
-  List parseJSON(Map<String, dynamic> dataman) {
-    var trip = dataman['data']['trip'];
-    var tripPatterns = trip['tripPatterns'];
-    var legs = tripPatterns[0]['legs'];
+  List parseJSON(Map<String, dynamic> jsonData) {
+    //var trip = jsonData['data']['trip'];
+    //var tripPatterns = trip['tripPatterns'];
+    //var legs = tripPatterns[0]['legs'];
+    var legs = jsonData['legs'];
     var leg_list = [];
 
     legs.forEach((leg) {
