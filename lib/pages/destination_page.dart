@@ -101,7 +101,8 @@ class _DestinationRouteState extends State<DestinationRoute> {
               if (snapshot.hasData) {
                 Map<String, dynamic> dataman = jsonDecode(snapshot.data.body);
                 var legList = parseJSON(dataman);
-                return DataTable(
+                return Column(children: [
+                  DataTable(
                   dataRowHeight: 60,
                   columns: [
                     DataColumn(label: Text('')),
@@ -125,19 +126,19 @@ class _DestinationRouteState extends State<DestinationRoute> {
                         ],
                       ),
                   ],
-                );
+                ),
+              ElevatedButton(
+              onPressed: () {
+              // Respond to button press
+              },
+              child: Text('Refresh'))
+                ]);
                 //return SelectableText(leg_list.toString());
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
               return CircularProgressIndicator();
-            }),
-          ElevatedButton(
-          onPressed: () {
-            // Respond to button press
-          },
-          child: Text('Refresh'),
-        )
+            })
         ]),
       ),
     );
