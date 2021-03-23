@@ -31,6 +31,7 @@ class DestinationRoute extends StatefulWidget {
 
 class _DestinationRouteState extends State<DestinationRoute> {
   Future<http.Response> response;
+  String destination;
   Set<String> destinations = {};
 
   @override
@@ -87,6 +88,19 @@ class _DestinationRouteState extends State<DestinationRoute> {
     return encoder.convert(jsonObject);
   }
 
+  String getDestinationFromLegList(List legList) {
+    var indexOfLastLeg = legList.length - 1;
+    var indexOfDestination = legList[indexOfLastLeg].length - 2;
+    destination = legList[indexOfLastLeg][indexOfDestination];
+    return destination;
+  }
+
+  List getLegListFromJSON(String response) {
+    Map<String, dynamic> dataman = jsonDecode(response);
+    var legList = parseJSON(dataman);
+    return legList;
+  }
+
   @override
   Widget build(BuildContext context) {
     //var responseman = fetchTrip(widget.startLocation);
@@ -101,15 +115,10 @@ class _DestinationRouteState extends State<DestinationRoute> {
                   future: response,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      Map<String, dynamic> dataman =
-                          jsonDecode(snapshot.data.body);
-                      var legList = parseJSON(dataman);
-                      var indexOfLastLeg = legList.length - 1;
-                      var indexOfDestination =
-                          legList[indexOfLastLeg].length - 2;
-                      destinations
-                          .add(legList[indexOfLastLeg][indexOfDestination]);
-                      print(destinations);
+                      var legList = getLegListFromJSON(snapshot.data.body);
+                      destination = getDestinationFromLegList(legList);
+                      destinations.add(destination);
+                      print("dest: " + destination);
 
                       return Column(children: [
                         DataTable(
@@ -139,6 +148,24 @@ class _DestinationRouteState extends State<DestinationRoute> {
                         ),
                         ElevatedButton(
                             onPressed: () {
+                              var legList =
+                                  getLegListFromJSON(snapshot.data.body);
+                              destination = getDestinationFromLegList(legList);
+                              print("new dest (not correct): " + destination);
+
+                              if (destinations.contains(destination)) {
+                                setState(() {
+                                  response = fetchTrip(widget.startLocation);
+                                });
+                                var legList =
+                                    getLegListFromJSON(snapshot.data.body);
+                                destination =
+                                    getDestinationFromLegList(legList);
+                                print("new dest in if (not correct): " +
+                                    destination);
+                                print(destinations);
+                              }
+
                               setState(() {
                                 response = fetchTrip(widget.startLocation);
                               });
