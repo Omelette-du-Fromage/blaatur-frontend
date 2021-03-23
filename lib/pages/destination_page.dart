@@ -31,6 +31,7 @@ class DestinationRoute extends StatefulWidget {
 
 class _DestinationRouteState extends State<DestinationRoute> {
   Future<http.Response> response;
+  Set<String> destinations = {};
 
   @override
   void initState() {
@@ -95,52 +96,61 @@ class _DestinationRouteState extends State<DestinationRoute> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
         child: ListView(children: [
-          Center( child: FutureBuilder<http.Response>(
-              future: response,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  Map<String, dynamic> dataman = jsonDecode(snapshot.data.body);
-                  var legList = parseJSON(dataman);
-                  return Column(children: [
-                    DataTable(
-                      dataRowHeight: 60,
-                      columns: [
-                        DataColumn(label: Text('')),
-                        DataColumn(label: Text('Klokke fra')),
-                        DataColumn(label: Text('Fra')),
-                        DataColumn(label: Text('Klokka til')),
-                        DataColumn(label: Text('Til')),
-                        DataColumn(label: Text('Selskap')),
-                      ],
-                      rows: [
-                        for (var leg in legList)
-                          DataRow(
-                            cells: [
-                              DataCell(
-                                leg[0],
+          Center(
+              child: FutureBuilder<http.Response>(
+                  future: response,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      Map<String, dynamic> dataman =
+                          jsonDecode(snapshot.data.body);
+                      var legList = parseJSON(dataman);
+                      var indexOfLastLeg = legList.length - 1;
+                      var indexOfDestination =
+                          legList[indexOfLastLeg].length - 2;
+                      destinations
+                          .add(legList[indexOfLastLeg][indexOfDestination]);
+                      print(destinations);
+
+                      return Column(children: [
+                        DataTable(
+                          dataRowHeight: 60,
+                          columns: [
+                            DataColumn(label: Text('')),
+                            DataColumn(label: Text('Klokke fra')),
+                            DataColumn(label: Text('Fra')),
+                            DataColumn(label: Text('Klokka til')),
+                            DataColumn(label: Text('Til')),
+                            DataColumn(label: Text('Selskap')),
+                          ],
+                          rows: [
+                            for (var leg in legList)
+                              DataRow(
+                                cells: [
+                                  DataCell(
+                                    leg[0],
+                                  ),
+                                  for (int i = 1; i < leg.length; i++)
+                                    DataCell(
+                                      Text(leg[i]),
+                                    ),
+                                ],
                               ),
-                              for (int i = 1; i < leg.length; i++)
-                                DataCell(
-                                  Text(leg[i]),
-                                ),
-                            ],
-                          ),
-                      ],
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            response = fetchTrip(widget.startLocation);
-                          });
-                        },
-                        child: Text('Refresh'))
-                  ]);
-                  //return SelectableText(leg_list.toString());
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                return Column(children: [CircularProgressIndicator()]);
-              })),
+                          ],
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                response = fetchTrip(widget.startLocation);
+                              });
+                            },
+                            child: Text('Refresh'))
+                      ]);
+                      //return SelectableText(leg_list.toString());
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+                    return Column(children: [CircularProgressIndicator()]);
+                  })),
         ]),
       ),
     );
