@@ -32,6 +32,7 @@ class DestinationRoute extends StatefulWidget {
 class _DestinationRouteState extends State<DestinationRoute> {
   Future<http.Response> response;
   String destination;
+  String prevDestination;
   Set<String> destinations = {};
 
   @override
@@ -119,8 +120,18 @@ class _DestinationRouteState extends State<DestinationRoute> {
                       destination = getDestinationFromLegList(legList);
                       destinations.add(destination);
                       print("dest: " + destination);
+                      print(destinations);
 
                       return Column(children: [
+                        SizedBox(height: 50),
+                        Text(
+                          destination,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        SizedBox(height: 50),
                         DataTable(
                           dataRowHeight: 60,
                           columns: [
@@ -146,31 +157,15 @@ class _DestinationRouteState extends State<DestinationRoute> {
                               ),
                           ],
                         ),
+                        SizedBox(height: 50),
                         ElevatedButton(
                             onPressed: () {
-                              var legList =
-                                  getLegListFromJSON(snapshot.data.body);
-                              destination = getDestinationFromLegList(legList);
-                              print("new dest (not correct): " + destination);
-
-                              if (destinations.contains(destination)) {
-                                setState(() {
-                                  response = fetchTrip(widget.startLocation);
-                                });
-                                var legList =
-                                    getLegListFromJSON(snapshot.data.body);
-                                destination =
-                                    getDestinationFromLegList(legList);
-                                print("new dest in if (not correct): " +
-                                    destination);
-                                print(destinations);
-                              }
-
                               setState(() {
                                 response = fetchTrip(widget.startLocation);
                               });
                             },
-                            child: Text('Refresh'))
+                            child: Text('Refresh')),
+                        SizedBox(height: 50)
                       ]);
                       //return SelectableText(leg_list.toString());
                     } else if (snapshot.hasError) {
