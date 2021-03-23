@@ -94,8 +94,8 @@ class _DestinationRouteState extends State<DestinationRoute> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          FutureBuilder<http.Response>(
+        child: ListView(children: [
+          Center( child: FutureBuilder<http.Response>(
               future: response,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -139,14 +139,13 @@ class _DestinationRouteState extends State<DestinationRoute> {
                 } else if (snapshot.hasError) {
                   return Text('${snapshot.error}');
                 }
-                return CircularProgressIndicator();
-              })
+                return Column(children: [CircularProgressIndicator()]);
+              })),
         ]),
       ),
     );
   }
 }
-
 
 /*return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
