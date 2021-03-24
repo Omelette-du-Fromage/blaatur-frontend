@@ -4,13 +4,18 @@ import 'dart:convert';
 
 void main() => runApp(DestinationRoute());
 
-Future<http.Response> fetchTrip(String startLocation) async {
+Future<http.Response> fetchTrip(
+    String startLocation, List destinationsUsed) async {
+  print(destinationsUsed.toString());
   final response = await http.post(
     'https://blaatur-backend-staging.herokuapp.com/testing',
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, String>{'place_from': startLocation}),
+    body: jsonEncode(<String, dynamic>{
+      'place_from': startLocation,
+      'destinations_used': destinationsUsed
+    }),
   );
   if (response.statusCode == 200) {
     print(jsonDecode(response.body));
@@ -32,20 +37,16 @@ class DestinationRoute extends StatefulWidget {
 class _DestinationRouteState extends State<DestinationRoute> {
   Future<http.Response> response;
   String destination;
-  String prevDestination;
-  Set<String> destinations = {};
+  List destinationsUsed = [];
 
   @override
   void initState() {
     super.initState();
-    response = fetchTrip(widget.startLocation);
+    response = fetchTrip(widget.startLocation, []);
   }
 
   List parseJSON(Map<String, dynamic> jsonData) {
-    //var trip = jsonData['data']['trip'];
-    //var tripPatterns = trip['tripPatterns'];
-    //var legs = tripPatterns[0]['legs'];
-    var legs = jsonData['legs'];
+    var legs = jsonData['trip']['legs'];
     var leg_list = [];
 
     legs.forEach((leg) {
@@ -96,17 +97,13 @@ class _DestinationRouteState extends State<DestinationRoute> {
     return destination;
   }
 
-  List getLegListFromJSON(String response) {
-    Map<String, dynamic> dataman = jsonDecode(response);
+  List getLegListFromJSON(Map<String, dynamic> dataman) {
     var legList = parseJSON(dataman);
     return legList;
   }
 
   @override
   Widget build(BuildContext context) {
-    //var responseman = fetchTrip(widget.startLocation);
-    //responseman.then((value) => null);
-
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
@@ -116,11 +113,13 @@ class _DestinationRouteState extends State<DestinationRoute> {
                   future: response,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      var legList = getLegListFromJSON(snapshot.data.body);
+                      var snapshotData = snapshot.data.body;
+                      Map<String, dynamic> dataman = jsonDecode(snapshotData);
+                      var legList = getLegListFromJSON(dataman);
+
                       destination = getDestinationFromLegList(legList);
-                      destinations.add(destination);
-                      print("dest: " + destination);
-                      print(destinations);
+                      destinationsUsed = dataman['destinations_used'];
+                      print(destinationsUsed);
 
                       return Column(children: [
                         SizedBox(height: 50),
@@ -161,13 +160,13 @@ class _DestinationRouteState extends State<DestinationRoute> {
                         ElevatedButton(
                             onPressed: () {
                               setState(() {
-                                response = fetchTrip(widget.startLocation);
+                                response = fetchTrip(
+                                    widget.startLocation, destinationsUsed);
                               });
                             },
                             child: Text('Refresh')),
                         SizedBox(height: 50)
                       ]);
-                      //return SelectableText(leg_list.toString());
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error}');
                     }
