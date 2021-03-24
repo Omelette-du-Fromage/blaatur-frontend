@@ -6,7 +6,6 @@ void main() => runApp(DestinationRoute());
 
 Future<http.Response> fetchTrip(
     String startLocation, List destinationsUsed) async {
-  print(destinationsUsed.toString());
   final response = await http.post(
     'https://blaatur-backend-staging.herokuapp.com/testing',
     headers: <String, String>{
@@ -119,7 +118,6 @@ class _DestinationRouteState extends State<DestinationRoute> {
 
                       destination = getDestinationFromLegList(legList);
                       destinationsUsed = dataman['destinations_used'];
-                      print(destinationsUsed);
 
                       return Column(children: [
                         SizedBox(height: 50),
