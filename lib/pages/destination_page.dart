@@ -177,22 +177,3 @@ class _DestinationRouteState extends State<DestinationRoute> {
   }
 }
 
-/*return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Container(
-              child: Text(response),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Go back'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
