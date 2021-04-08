@@ -70,6 +70,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
   Icon stringToIcon(String string) {
     var iconName = <String, IconData>{
       'foot': Icons.directions_walk,
+      'water': Icons.directions_boat,
       'air': Icons.airplanemode_off_rounded,
       'bus': Icons.directions_bus,
       'rail': Icons.directions_train,
