@@ -39,7 +39,7 @@ class MainPage extends StatelessWidget {
               SizedBox(height: 200),
               TravelForm(
                   inputFieldStartingPoint:
-                      InputField(hintText: 'Bergen', value: 'Bergen'),
+                      InputField(key: Key('inputField_main_page'), hintText: 'Bergen', value: 'Bergen'),
                   callback: callback),
             ],
           ),

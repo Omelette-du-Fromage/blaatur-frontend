@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   String value;
   String hintText;
+  Key key;
 
-  InputField({this.hintText = 'Hint Text', this.value = ''});
+  InputField({this.key, this.hintText = 'Hint Text', this.value = ''});
 
   @override
   Widget build(BuildContext context) {
