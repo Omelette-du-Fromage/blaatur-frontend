@@ -38,6 +38,7 @@ class MainPage extends StatelessWidget {
               ),
               SizedBox(height: 200),
               TravelForm(
+
                   inputFieldStartingPoint:
                       InputField(key: Key('inputField_main_page'), hintText: 'Bergen', value: 'Bergen'),
                   callback: callback),
@@ -75,6 +76,7 @@ class TravelForm extends StatelessWidget {
         SizedBox(height: 10),
         SizedBox(height: 20),
         RawMaterialButton(
+          key: Key('go_button_main_page'),
           onPressed: () {
             callback(context, inputFieldStartingPoint);
           },
