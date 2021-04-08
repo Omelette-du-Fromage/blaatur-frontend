@@ -124,6 +124,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
                         SizedBox(height: 50),
                         Text(
                           destination,
+                          key: Key('response-from-backend'),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
