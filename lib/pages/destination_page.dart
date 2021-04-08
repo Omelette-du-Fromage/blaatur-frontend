@@ -107,7 +107,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
-        child: ListView(children: [
+        child: ListView(shrinkWrap: true, children: [
           Center(
               child: FutureBuilder<http.Response>(
                   future: response,
