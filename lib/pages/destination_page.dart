@@ -135,9 +135,9 @@ class _DestinationRouteState extends State<DestinationRoute> {
                           dataRowHeight: 60,
                           columns: [
                             DataColumn(label: Text('')),
-                            DataColumn(label: Text('Klokke fra')),
+                            DataColumn(label: Text('Klokken fra')),
                             DataColumn(label: Text('Fra')),
-                            DataColumn(label: Text('Klokka til')),
+                            DataColumn(label: Text('Klokken til')),
                             DataColumn(label: Text('Til')),
                             DataColumn(label: Text('Selskap')),
                           ],

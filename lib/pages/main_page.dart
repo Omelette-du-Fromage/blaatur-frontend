@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:food_web/components/airbnb_webview.dart';
 import '../components/input_field.dart';
 import 'destination_page.dart';
 
@@ -38,9 +39,10 @@ class MainPage extends StatelessWidget {
               ),
               SizedBox(height: 200),
               TravelForm(
-
-                  inputFieldStartingPoint:
-                      InputField(key: Key('inputField_main_page'), hintText: 'Bergen', value: 'Bergen'),
+                  inputFieldStartingPoint: InputField(
+                      key: Key('inputField_main_page'),
+                      hintText: 'Bergen',
+                      value: 'Bergen'),
                   callback: callback),
             ],
           ),
