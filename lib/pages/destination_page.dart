@@ -177,4 +177,3 @@ class _DestinationRouteState extends State<DestinationRoute> {
     );
   }
 }
-

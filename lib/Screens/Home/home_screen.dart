@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_web/Screens/Home/Components/app_bar.dart';
-import 'package:food_web/Screens/Home/Components/body.dart';
+import 'package:Blaatur/Screens/Home/Components/app_bar.dart';
+import 'package:Blaatur/Screens/Home/Components/body.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

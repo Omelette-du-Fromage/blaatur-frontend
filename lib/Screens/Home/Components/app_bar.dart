@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_web/Components/default_button.dart';
+import 'package:Blaatur/Components/default_button.dart';
 
 import 'menu_item.dart';
 
