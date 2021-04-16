@@ -25,7 +25,9 @@ void main() {
       }
     });
 
-    test('given inputField has value Bergen when go-button is pressed then response is not empty', () async {
+    test(
+        'given inputField has value Bergen when go-button is pressed then response is not empty',
+        () async {
       // Given
       await driver.tap(inputFieldFinder);
       await driver.enterText("Bergen");
