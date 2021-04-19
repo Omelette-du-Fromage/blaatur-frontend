@@ -1,5 +1,5 @@
 import 'dart:html';
-
+import 'dart:math';
 import 'package:Blaatur/components/date_selector.dart';
 import 'package:flutter/material.dart';
 import '../components/input_field.dart';
@@ -14,7 +14,7 @@ class MainPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/pic2.jpg'),
+            image: randomBackground(),
             fit: BoxFit.cover,
           ),
         ),
@@ -61,6 +61,14 @@ class MainPage extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  AssetImage randomBackground() {
+    var base_path = 'assets/images/pic';
+    var rand = Random();
+    var img = rand.nextInt(3) + 1;
+    print(base_path + img.toString() + '.jpg');
+    return AssetImage(base_path + img.toString() + '.jpg');
   }
 
   final callback = (context, inputFieldStartingPoint) => Navigator.push(
