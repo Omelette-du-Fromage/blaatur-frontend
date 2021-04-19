@@ -44,4 +44,5 @@ flutter:
   assets:
     - assets/images/pic1.jpg
     - assets/images/pic2.jpg
+    - assets/images/EnTur.png
   
