@@ -25,7 +25,7 @@ class MainPage extends StatelessWidget {
             child: Container(
                 child: Image.asset(
               'assets/images/EnTur.png',
-              width: 200,
+              width: 150,
               color: Colors.blueGrey,
             )),
           ),
