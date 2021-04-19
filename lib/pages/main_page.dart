@@ -1,7 +1,7 @@
 import 'dart:html';
 
+import 'package:Blaatur/components/date_selector.dart';
 import 'package:flutter/material.dart';
-import '../components/airbnb_webview.dart';
 import '../components/input_field.dart';
 import 'destination_page.dart';
 
@@ -40,7 +40,7 @@ class MainPage extends StatelessWidget {
               SizedBox(height: 200),
               TravelForm(
                   inputFieldStartingPoint: InputField(
-                      key: Key('inputField_main_page'),
+                      key: Key('inputField_main'),
                       hintText: 'Bergen',
                       value: 'Bergen'),
                   callback: callback),
@@ -76,7 +76,8 @@ class TravelForm extends StatelessWidget {
       children: <Widget>[
         inputFieldStartingPoint,
         SizedBox(height: 10),
-        SizedBox(height: 20),
+        DateSelector(key: Key('dateSelector_main')), 
+        SizedBox(height: 10),
         RawMaterialButton(
           key: Key('go_button_main_page'),
           onPressed: () {
