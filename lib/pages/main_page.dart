@@ -67,7 +67,6 @@ class MainPage extends StatelessWidget {
     var base_path = 'assets/images/pic';
     var rand = Random();
     var img = rand.nextInt(3) + 1;
-    print(base_path + img.toString() + '.jpg');
     return AssetImage(base_path + img.toString() + '.jpg');
   }
 

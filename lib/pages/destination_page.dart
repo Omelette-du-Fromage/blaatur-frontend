@@ -6,8 +6,10 @@ void main() => runApp(DestinationRoute());
 
 Future<http.Response> fetchTrip(
     String startLocation, List destinationsUsed) async {
+      print(startLocation);
+      print(destinationsUsed);
   final response = await http.post(
-    'https://blaatur-backend-staging.herokuapp.com/testing',
+    Uri.parse('https://blaatur-backend-staging.herokuapp.com/testing'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -49,6 +51,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
     var leg_list = [];
 
     legs.forEach((leg) {
+      print(leg);
       var startTime = DateTime.parse(leg['expectedStartTime']);
       var endTime = DateTime.parse(leg['expectedEndTime']);
       var transport_company = '';
@@ -115,8 +118,9 @@ class _DestinationRouteState extends State<DestinationRoute> {
                     if (snapshot.hasData) {
                       var snapshotData = snapshot.data.body;
                       Map<String, dynamic> dataman = jsonDecode(snapshotData);
+                      print(dataman);
                       var legList = getLegListFromJSON(dataman);
-
+                      print(legList);
                       destination = getDestinationFromLegList(legList);
                       destinationsUsed = dataman['destinations_used'];
 
