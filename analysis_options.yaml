@@ -10,7 +10,5 @@ include: package:pedantic/analysis_options.yaml
 #     - camel_case_types
 
 analyzer:
-  errors:
-    undefined_prefixed_name: ignore
 #   exclude:
 #     - path/to/excluded/files/**
