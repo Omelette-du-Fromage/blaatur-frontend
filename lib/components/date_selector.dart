@@ -31,19 +31,20 @@ class _DateSelectorState extends State<DateSelector> {
       setState(() {
         widget.fromDate = picked.start;
         widget.toDate = picked.end;
-      });  
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        onPressed: () => _selectDate(context),
-        child: Icon(
-          Icons.date_range,
-          color: Colors.blue,
-          size: 20.0,
-        ),
-      );
+    return RaisedButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      onPressed: () => _selectDate(context),
+      child: Icon(
+        Icons.date_range,
+        color: Colors.blue,
+        size: 20.0,
+      ),
+    );
   }
 }
