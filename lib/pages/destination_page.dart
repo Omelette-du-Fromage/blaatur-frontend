@@ -169,7 +169,12 @@ class _DestinationRouteState extends State<DestinationRoute> {
                                     widget.startLocation, destinationsUsed);
                               });
                             },
-                            child: snapshot.connectionState == ConnectionState.done ?  Text('Refresh') : CircularProgressIndicator()),
+                            child: snapshot.connectionState == ConnectionState.done ?  Text('Refresh') :
+                                  SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(backgroundColor: Colors.white,
+                                              strokeWidth: 2))),
                         SizedBox(height: 50)
                       ]);
                     } else if (snapshot.hasError) {
