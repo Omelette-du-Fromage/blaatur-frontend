@@ -9,7 +9,8 @@ Future<http.Response> fetchTrip(
       print(startLocation);
       print(destinationsUsed);
   final response = await http.post(
-    Uri.parse('https://blaatur-backend-staging.herokuapp.com/testing'),
+    //Uri.parse('https://blaatur-backend-staging.herokuapp.com/testing'),
+    Uri.parse('http://127.0.0.1:33507/testing'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -168,7 +169,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
                                     widget.startLocation, destinationsUsed);
                               });
                             },
-                            child: Text('Refresh')),
+                            child: snapshot.connectionState == ConnectionState.done ?  Text('Refresh') : CircularProgressIndicator()),
                         SizedBox(height: 50)
                       ]);
                     } else if (snapshot.hasError) {
