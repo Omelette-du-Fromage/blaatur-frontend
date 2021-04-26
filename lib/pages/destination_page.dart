@@ -9,8 +9,7 @@ Future<http.Response> fetchTrip(
       print(startLocation);
       print(destinationsUsed);
   final response = await http.post(
-    //Uri.parse('https://blaatur-backend-staging.herokuapp.com/testing'),
-    Uri.parse('http://127.0.0.1:33507/testing'),
+    Uri.parse('https://blaatur-backend-staging.herokuapp.com/testing'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
