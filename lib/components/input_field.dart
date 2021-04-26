@@ -16,6 +16,7 @@ class InputField extends StatelessWidget {
         child: TextField(
           style: TextStyle(color: Colors.white),
           onChanged: (val) => value = val,
+          onTap: () => {hintText = ' ', (context as Element).markNeedsBuild()},
           textAlign: TextAlign.center,
           decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
