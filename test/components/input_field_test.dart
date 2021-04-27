@@ -30,7 +30,7 @@ void main() {
         await tester
             .pumpWidget(MaterialApp(home: TravelForm(
             inputFieldStartingPoint: inputField,
-            callback: () => {})));
+            callback: () => MainPage.callback)));
 
         final goButton = find.byKey(Key('go_button_main_page'));
         await tester.press(goButton);
