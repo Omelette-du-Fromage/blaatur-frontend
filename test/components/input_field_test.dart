@@ -20,7 +20,24 @@ void main() {
     expect(inputField.value, 'Bergen');
   });
 
-  testWidgets('Given no input to inputfield and go button is pressed an error occurs',
+  testWidgets('When input field is tapped hint text goes away',
+          (WidgetTester tester) async {
+
+        final inputField = InputField(
+            key: Key('inputField_main'),
+            hintText: 'Bergen',
+            value: '');
+        await tester
+            .pumpWidget(MaterialApp(home: TravelForm(
+            inputFieldStartingPoint: inputField,
+            callback: MainPage.callback)));
+        final inputFieldTester = find.byKey(Key('inputField_main'));
+        await tester.tap(inputFieldTester);
+        await tester.pump();
+        expect(inputField.hintText, ' ');
+  });
+
+  testWidgets('Given input field is empty user is displayed an error',
           (WidgetTester tester) async {
 
         final inputField = InputField(
@@ -33,8 +50,11 @@ void main() {
             callback: MainPage.callback)));
 
         final goButton = find.byKey(Key('go_button_main_page'));
+        final inputFieldTester = find.byKey(Key('inputField_main'));
+        await tester.tap(inputFieldTester);
         await tester.press(goButton);
         await tester.pump();
-        expect(inputField.hintText, 'Not empty');
-  });
+
+        expect(MainPage.callback, prints(''));
+      });
 }
