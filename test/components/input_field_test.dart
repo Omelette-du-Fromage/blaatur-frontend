@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:Blaatur/components/input_field.dart';
 
+
 void main() {
   testWidgets('InputField handles input correctly',
       (WidgetTester tester) async {
@@ -37,24 +38,4 @@ void main() {
         expect(inputField.hintText, ' ');
   });
 
-  testWidgets('Given input field is empty user is displayed an error',
-          (WidgetTester tester) async {
-
-        final inputField = InputField(
-            key: Key('inputField_main'),
-            hintText: 'Bergen',
-            value: '');
-        await tester
-            .pumpWidget(MaterialApp(home: TravelForm(
-            inputFieldStartingPoint: inputField,
-            callback: MainPage.callback)));
-
-        final goButton = find.byKey(Key('go_button_main_page'));
-        final inputFieldTester = find.byKey(Key('inputField_main'));
-        await tester.tap(inputFieldTester);
-        await tester.press(goButton);
-        await tester.pump();
-
-        expect(MainPage.callback, prints(''));
-      });
 }

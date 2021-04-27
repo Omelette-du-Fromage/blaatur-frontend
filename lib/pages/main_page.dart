@@ -53,7 +53,7 @@ class MainPage extends StatelessWidget {
                     inputFieldStartingPoint: InputField(
                         key: Key('inputField_main'),
                         hintText: 'Bergen',
-                        value: 'Bergen'),
+                        value: ''),
                     callback: callback),
               ],
             ),
@@ -70,13 +70,19 @@ class MainPage extends StatelessWidget {
     return AssetImage(base_path + img.toString() + '.jpg');
   }
 
-  static final callback = (context, inputFieldStartingPoint) => Navigator.push(
+  static callback(context, inputFieldStartingPoint) {
+    if (inputFieldStartingPoint.value == '') {
+      print('No value given to inputfield');
+    } else {
+      Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) =>
               DestinationRoute(startLocation: inputFieldStartingPoint.value),
         ),
       );
+    }
+  }
 }
 
 class TravelForm extends StatelessWidget {
