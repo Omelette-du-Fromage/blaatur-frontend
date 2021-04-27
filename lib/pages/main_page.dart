@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 import 'dart:math';
 import 'package:Blaatur/components/date_selector.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +70,7 @@ class MainPage extends StatelessWidget {
     return AssetImage(base_path + img.toString() + '.jpg');
   }
 
-  final callback = (context, inputFieldStartingPoint) => Navigator.push(
+  static final callback = (context, inputFieldStartingPoint) => Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) =>
