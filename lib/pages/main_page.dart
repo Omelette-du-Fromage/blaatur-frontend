@@ -52,8 +52,10 @@ class MainPage extends StatelessWidget {
                 TravelForm(
                     inputFieldStartingPoint: InputField(
                         key: Key('inputField_main'),
-                        hintText: 'Bergen',
+                        hintText: 'Hvor vil du reise fra?',
                         value: ''),
+                    dateSelectorStartDate:
+                        DateSelector(key: Key('dateSelector_main')),
                     callback: callback),
               ],
             ),
@@ -70,15 +72,17 @@ class MainPage extends StatelessWidget {
     return AssetImage(base_path + img.toString() + '.jpg');
   }
 
-  static callback(context, inputFieldStartingPoint) {
+  static void callback(
+      context, inputFieldStartingPoint, dateSelectorStartDate) {
     if (inputFieldStartingPoint.value == '') {
       print('No value given to inputfield');
     } else {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              DestinationRoute(startLocation: inputFieldStartingPoint.value),
+          builder: (context) => DestinationRoute(
+              startLocation: inputFieldStartingPoint.value,
+              startDate: dateSelectorStartDate.selectedDate),
         ),
       );
     }
@@ -89,10 +93,12 @@ class TravelForm extends StatelessWidget {
   const TravelForm(
       {Key key,
       @required this.inputFieldStartingPoint,
+      @required this.dateSelectorStartDate,
       @required this.callback})
       : super(key: key);
 
   final InputField inputFieldStartingPoint;
+  final DateSelector dateSelectorStartDate;
   final Function callback;
 
   @override
@@ -101,12 +107,12 @@ class TravelForm extends StatelessWidget {
       children: <Widget>[
         inputFieldStartingPoint,
         SizedBox(height: 10),
-        DateSelector(key: Key('dateSelector_main')),
+        dateSelectorStartDate,
         SizedBox(height: 10),
         RawMaterialButton(
           key: Key('go_button_main_page'),
           onPressed: () {
-            callback(context, inputFieldStartingPoint);
+            callback(context, inputFieldStartingPoint, dateSelectorStartDate);
           },
           elevation: 2.0,
           fillColor: Colors.white,

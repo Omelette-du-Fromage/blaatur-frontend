@@ -5,17 +5,26 @@ import 'dart:convert';
 void main() => runApp(DestinationRoute());
 
 Future<http.Response> fetchTrip(
-    String startLocation, List destinationsUsed) async {
-  print(startLocation);
-  print(destinationsUsed);
+    String startLocation, DateTime startDate, List destinationsUsed) async {
+  // Too early to travel at 8 o'clock
+  if (startDate.hour < 8) {
+    var time_to_8 = 8 - startDate.hour;
+    startDate = startDate.add(Duration(hours: time_to_8));
+  }
+  print(startDate.toString());
+
   final response = await http.post(
-    Uri.parse('https://blaatur-backend-staging.herokuapp.com/get_blaatur'),
+    //Uri.parse('https://blaatur-backend-staging.herokuapp.com/testing'),
+    //####################################################################
+    //####################################################################
+    Uri.parse('http://127.0.0.1:33507/get_blaatur'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, dynamic>{
       'place_from': startLocation,
-      'destinations_used': destinationsUsed
+      'destinations_used': destinationsUsed,
+      'start_date': startDate.toString()
     }),
   );
   if (response.statusCode == 200) {
@@ -28,8 +37,10 @@ Future<http.Response> fetchTrip(
 
 class DestinationRoute extends StatefulWidget {
   final String startLocation;
+  final DateTime startDate;
 
-  DestinationRoute({Key key, this.startLocation}) : super(key: key);
+  DestinationRoute({Key key, this.startLocation, this.startDate})
+      : super(key: key);
 
   @override
   _DestinationRouteState createState() => _DestinationRouteState();
@@ -38,22 +49,44 @@ class DestinationRoute extends StatefulWidget {
 class _DestinationRouteState extends State<DestinationRoute> {
   Future<http.Response> response;
   String destination;
+  DateTime tripStartDate;
   List destinationsUsed = [];
 
   @override
   void initState() {
     super.initState();
-    response = fetchTrip(widget.startLocation, []);
+    response = fetchTrip(widget.startLocation, widget.startDate, []);
   }
 
   List parseJSON(Map<String, dynamic> jsonData) {
     var legs = jsonData['trip']['legs'];
     var leg_list = [];
+    tripStartDate = DateTime.parse(legs[0]['expectedStartTime']);
+    var previousDateDay = tripStartDate.day;
 
     legs.forEach((leg) {
-      print(leg);
       var startTime = DateTime.parse(leg['expectedStartTime']);
+      startTime = startTime.toLocal();
       var endTime = DateTime.parse(leg['expectedEndTime']);
+      endTime = endTime.toLocal();
+
+      if (startTime.day > previousDateDay) {
+        leg_list.add([
+          Text(
+            "Dato: ${startTime.day.toString().padLeft(2, '0')}.${startTime.month.toString().padLeft(2, '0')}",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+            ),
+          ),
+          '',
+          '',
+          '',
+          '',
+          ''
+        ]);
+      }
+
       var transport_company = '';
       if (leg['line'] != null) {
         transport_company = leg['line']['authority']['name'];
@@ -66,6 +99,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
         leg['toPlace']['name'],
         transport_company,
       ]);
+      previousDateDay = startTime.day;
     });
     return leg_list;
   }
@@ -79,6 +113,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
       'rail': Icons.directions_train,
       'tram': Icons.directions_transit_outlined
     }[string];
+
     return Icon(
       iconName,
       color: Colors.white,
@@ -118,9 +153,7 @@ class _DestinationRouteState extends State<DestinationRoute> {
                     if (snapshot.hasData) {
                       var snapshotData = snapshot.data.body;
                       Map<String, dynamic> dataman = jsonDecode(snapshotData);
-                      print(dataman);
                       var legList = getLegListFromJSON(dataman);
-                      print(legList);
                       destination = getDestinationFromLegList(legList);
                       destinationsUsed = dataman['destinations_used'];
 
@@ -138,7 +171,15 @@ class _DestinationRouteState extends State<DestinationRoute> {
                         DataTable(
                           dataRowHeight: 60,
                           columns: [
-                            DataColumn(label: Text('')),
+                            DataColumn(
+                              label: Text(
+                                "Dato: ${tripStartDate.day.toString().padLeft(2, '0')}.${tripStartDate.month.toString().padLeft(2, '0')}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
                             DataColumn(label: Text('Klokken fra')),
                             DataColumn(label: Text('Fra')),
                             DataColumn(label: Text('Klokken til')),
@@ -164,8 +205,8 @@ class _DestinationRouteState extends State<DestinationRoute> {
                         ElevatedButton(
                             onPressed: () {
                               setState(() {
-                                response = fetchTrip(
-                                    widget.startLocation, destinationsUsed);
+                                response = fetchTrip(widget.startLocation,
+                                    widget.startDate, destinationsUsed);
                               });
                             },
                             child:
