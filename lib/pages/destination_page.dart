@@ -11,13 +11,9 @@ Future<http.Response> fetchTrip(
     var time_to_8 = 8 - startDate.hour;
     startDate = startDate.add(Duration(hours: time_to_8));
   }
-  print(startDate.toString());
 
   final response = await http.post(
-    //Uri.parse('https://blaatur-backend-staging.herokuapp.com/testing'),
-    //####################################################################
-    //####################################################################
-    Uri.parse('http://127.0.0.1:33507/get_blaatur'),
+    Uri.parse('https://blaatur-backend-staging.herokuapp.com/get_blaatur'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
